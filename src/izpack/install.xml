@@ -18,10 +18,6 @@
         <variable name="JDKPathPanel.skipIfValid" value="no"/>
     </variables>
 
-    <locale>
-        <langpack iso3="eng"/>
-    </locale>
-
     <guiprefs width="800" height="600" resizable="yes">
         <splash>src/izpack/splash.png</splash>
         <!--<laf name="substance">
@@ -35,8 +31,17 @@
         </laf>
         <modifier key="useHeadingPanel" value="yes" />-->
     </guiprefs>
+    
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+    
+    <resources>
+        <res id="LicencePanel.licence" src="LICENSE.txt"/>
+    </resources>
 
     <panels>
+        <panel classname="LicensePanel"/>
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="InstallPanel"/>
