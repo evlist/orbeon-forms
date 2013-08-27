@@ -12,25 +12,9 @@
         <javaversion>1.5</javaversion>
     </info>
 
-    <variables>
-        <variable name="JDKPathPanel.minVersion" value="1.5"/>
-        <!--<variable name="JDKPathPanel.maxVersion" value="1.4.99" />-->
-        <variable name="JDKPathPanel.skipIfValid" value="no"/>
-    </variables>
-
     <guiprefs width="800" height="600" resizable="yes">
         <splash>src/izpack/splash.png</splash>
-        <!--<laf name="substance">
-            <os family="windows" />
-            <os family="unix" />
-            <param name="variant" value="mist-silver" />
-        </laf>
-        <laf name="substance">
-            <os family="mac" />
-            <param name="variant" value="mist-aqua" />
-        </laf>
-        <modifier key="useHeadingPanel" value="yes" />-->
-    </guiprefs>
+     </guiprefs>
     
     <locale>
         <langpack iso3="eng"/>
@@ -38,6 +22,7 @@
     
     <resources>
         <res id="LicencePanel.licence" src="LICENSE.txt"/>
+        <res id="HTMLInfoPanel.done" src="src/izpack/done.html"/>
     </resources>
 
     <panels>
@@ -45,6 +30,7 @@
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="InstallPanel"/>
+        <panel classname="HTMLInfoPanel" id="done" />
         <panel classname="FinishPanel"/>
     </panels>
 
