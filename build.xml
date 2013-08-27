@@ -850,13 +850,24 @@
     </target>
 
     <!-- IzPack installer (including Tomcat) -->
-    <target name="orbeon-dist-izpack" depends="orbeon-dist-war">
+    <target name="orbeon-dist-izpack" depends="jars, exist-import-sample-data-to-build" description="Creates IzPack installer">
+        <mkdir dir="${build.distrib.dir}"/>
+        
+        <antcall target="war">
+            <param name="skip.compilation" value="true"/>
+        </antcall>
+        <antcall target="war-copy-descriptors">
+            <param name="skip.compilation" value="true"/>
+            <param name="target" value="war"/>
+            <param name="build.root" value="${build.root}"/>
+        </antcall>
+        
         <copy file="src/izpack/install.xml" tofile="${build.temp.dir}/izpack-install.xml">
             <filterchain>
                 <replacetokens>
                     <token key="EDITION" value="${edition}"/>
                     <token key="VERSION_NUMBER" value="${version.number}"/>
-                    <token key="WAR_FILENAME" value="${versioned-name}.war"/>
+                    <!--<token key="WAR_FILENAME" value="${versioned-name}.war"/>-->
                 </replacetokens>
             </filterchain>
         </copy>

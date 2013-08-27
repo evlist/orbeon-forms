@@ -66,11 +66,53 @@
         </pack>
         <pack name="Orbeon Forms @EDITION@" required="yes">
             <description>Orbeon Forms</description>
-            <file src="build/distrib/@WAR_FILENAME@" targetdir="${INSTALL_PATH}/webapps/orbeon" unpack="true"
+            <fileset dir="build/orbeon-war" targetdir="${INSTALL_PATH}/webapps/orbeon" 
+                override="true">
+                <exclude name="WEB-INF/resources/apps/**"/>
+                <exclude name="WEB-INF/resources/ops"/>
+                <exclude name="WEB-INF/resources/ops/**"/>
+            </fileset>
+            <fileset dir="src/resources/apps/home" targetdir="${INSTALL_PATH}/webapps/orbeon/WEB-INF/resources/apps/home" 
                 override="true"/>
+            <fileset dir="src/resources" targetdir="${INSTALL_PATH}/webapps/orbeon/WEB-INF/resources" 
+                override="true">
+                <exclude name="apps/**"/>
+                <exclude name="forms/**"/>
+            </fileset>
             <!--<parsable targetfile="${INSTALL_PATH}/test.properties"/>-->
         </pack>
-
+        <pack name="Sample forms" required="no">
+            <description>Sample forms for plain XForms and Form Builder / Form Runner</description>
+            <fileset dir="build/orbeon-war" targetdir="${INSTALL_PATH}/webapps/orbeon" 
+                override="true">
+                <include name="WEB-INF/resources/apps/**"/>
+            </fileset>
+            <fileset dir="src/resources/apps" targetdir="${INSTALL_PATH}/webapps/orbeon/WEB-INF/resources/apps" 
+                override="true">
+                <exclude name="doc/**/*.eps"/>
+                <exclude name="doc/**/*.jsp"/>
+                <exclude name="doc/**/*.cdr"/>
+                <exclude name="doc/**/*.cpl"/>
+                <!-- Form Runner is packaged as a JAR -->
+                <exclude name="fr"/>
+                <exclude name="fr/**"/>
+                <!-- Form Builder is packaged as a JAR -->
+                <exclude name="forms/orbeon/builder"/>
+                <exclude name="forms/orbeon/builder/**"/>
+            </fileset>
+            <fileset dir="src/resources/forms" targetdir="${INSTALL_PATH}/webapps/orbeon/WEB-INF/resources/forms" 
+                override="true">
+                <!-- Form Builder is packaged as a JAR -->
+                <exclude name="orbeon/builder"/>
+                <exclude name="orbeon/builder/**"/>
+            </fileset>
+            <fileset dir="build/exist-data" targetdir="${INSTALL_PATH}/webapps/orbeon/WEB-INF/exist-data" 
+                override="true">
+                <exclude name="*.log"/>
+                <exclude name="*.lck"/>
+            </fileset>
+        </pack>
+        
     </packs>
 
 </izpack:installation>
