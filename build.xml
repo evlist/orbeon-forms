@@ -851,7 +851,7 @@
 
     <!-- IzPack installer (including Tomcat) -->
     <target name="orbeon-dist-izpack" depends="orbeon-dist-war">
-        <copy file="tools/izpack/install.xml" tofile="${build.temp.dir}/izpack-install.xml">
+        <copy file="src/izpack/install.xml" tofile="${build.temp.dir}/izpack-install.xml">
             <filterchain>
                 <replacetokens>
                     <token key="EDITION" value="${edition}"/>
