@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<izpack:installation version="5.0" xmlns:izpack="http://izpack.org/schema/installation"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+
+    <info>
+        <appname>Orbeon Forms @EDITION@</appname>
+        <appversion>@VERSION_NUMBER@</appversion>
+        <appsubpath>tomcat-orbeon-forms</appsubpath>
+        <!--<appsubpath>orbeon</appsubpath>-->
+        <url>http://orbeon.com</url>
+        <javaversion>1.5</javaversion>
+    </info>
+
+    <variables>
+        <variable name="JDKPathPanel.minVersion" value="1.5"/>
+        <!--<variable name="JDKPathPanel.maxVersion" value="1.4.99" />-->
+        <variable name="JDKPathPanel.skipIfValid" value="no"/>
+    </variables>
+
+    <locale>
+        <langpack iso3="eng"/>
+    </locale>
+
+    <guiprefs width="800" height="600" resizable="yes">
+        <!--<splash>images/peas_load.gif</splash>-->
+        <!--<laf name="substance">
+            <os family="windows" />
+            <os family="unix" />
+            <param name="variant" value="mist-silver" />
+        </laf>
+        <laf name="substance">
+            <os family="mac" />
+            <param name="variant" value="mist-aqua" />
+        </laf>
+        <modifier key="useHeadingPanel" value="yes" />-->
+    </guiprefs>
+
+    <panels>
+        <!--<panel classname="JDKPathPanel"/>-->
+        <panel classname="TargetPanel"/>
+        <panel classname="PacksPanel"/>
+        <panel classname="InstallPanel"/>
+        <panel classname="FinishPanel"/>
+    </panels>
+
+    <packs>
+        <pack name="Tomcat" required="yes">
+            <description>Web server and servlet container</description>
+            <fileset dir="tomcat" targetdir="${INSTALL_PATH}" override="true"/>
+            <executable targetfile="${INSTALL_PATH}/bin/catalina.sh" stage="never"/>
+            <executable targetfile="${INSTALL_PATH}/bin/configtest.sh" stage="never"/>
+            <executable targetfile="${INSTALL_PATH}/bin/daemon.sh" stage="never"/>
+            <executable targetfile="${INSTALL_PATH}/bin/digest.sh" stage="never"/>
+            <executable targetfile="${INSTALL_PATH}/bin/setclasspath.sh" stage="never"/>
+            <executable targetfile="${INSTALL_PATH}/bin/shutdown.sh" stage="uninstall"/>
+            <executable targetfile="${INSTALL_PATH}/bin/startup.sh" stage="postinstall"/>
+            <executable targetfile="${INSTALL_PATH}/bin/tool-wrapper.sh" stage="never"/>
+            <executable targetfile="${INSTALL_PATH}/bin/version.sh" stage="never"/>
+            <!--<parsable targetfile="${INSTALL_PATH}/test.properties"/>-->
+        </pack>
+        <pack name="Orbeon Forms @EDITION@" required="yes">
+            <description>Orbeon Forms</description>
+            <file src="build/distrib/@WAR_FILENAME@" targetdir="${INSTALL_PATH}/webapps/orbeon" unpack="true"
+                override="true"/>
+            <!--<parsable targetfile="${INSTALL_PATH}/test.properties"/>-->
+        </pack>
+
+    </packs>
+
+</izpack:installation>

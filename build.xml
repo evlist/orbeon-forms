@@ -71,6 +71,15 @@
             <pathelement location="lib/ant-contrib-1.0b3.jar"/>
         </classpath>
     </taskdef>
+    
+    <!-- IzPack installer -->
+    <taskdef name="izpack" classname="com.izforge.izpack.ant.IzPackTask" >
+        <classpath>
+            <fileset dir="tools/izpack/lib/">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
 
     <fileset id="war.libs" dir="lib">
 
@@ -321,6 +330,7 @@
             </fileset>
         </path>
     </target>
+    
 
     <!-- Perform string replacement in Version.scala to set version and edition  -->
     <target name="set-version" depends="init">
@@ -837,6 +847,24 @@
             <!-- README.txt file -->
             <zipfileset dir="descriptors/orbeon-war/exist-data" prefix="WEB-INF/exist-data"/>
         </zip>
+    </target>
+
+    <!-- IzPack installer (including Tomcat) -->
+    <target name="orbeon-dist-izpack" depends="orbeon-dist-war">
+        <copy file="tools/izpack/install.xml" tofile="${build.temp.dir}/izpack-install.xml">
+            <filterchain>
+                <replacetokens>
+                    <token key="EDITION" value="${edition}"/>
+                    <token key="VERSION_NUMBER" value="${version.number}"/>
+                    <token key="WAR_FILENAME" value="${versioned-name}.war"/>
+                </replacetokens>
+            </filterchain>
+        </copy>
+        <izpack input="${build.temp.dir}/izpack-install.xml"
+            output="${build.distrib.dir}/install-${versioned-name}.jar"
+            installerType="standard"
+            basedir="."
+            izPackDir="tools/izpack" />    
     </target>
 
     <target name="orbeon-dist-packages" depends="orbeon-dist-war, proxy-portlet-war, orbeon-auth-war, orbeon-src">
